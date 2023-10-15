@@ -225,4 +225,41 @@ namespace KJPi.IO
             process.WaitForExit();
         }
     }
+    /// <summary>
+    /// Метод, занимающийся получением изображения в формате строки Base 64
+    /// </summary>
+    /// <param name="filePath">На вход подаётся путь до изображения</param>
+    /// <returns>Возвращает строку изображения в формате Base 64</returns>
+    public static string GetImageBase64String(string filePath)
+    {
+        string outputFilePath = filePath.Replace(".png", ".txt");
+    
+        string command = $"-command \"[System.Convert]::ToBase64String([System.IO.File]::ReadAllBytes('{filePath}')) | Out-File -FilePath '{outputFilePath}'\"";
+    
+        ProcessStartInfo psi = new ProcessStartInfo
+        {
+            FileName = "powershell.exe",
+            Arguments = command,
+            RedirectStandardOutput = true,
+            UseShellExecute = false,
+            CreateNoWindow = true
+        };
+    
+        using (Process process = new Process())
+        {
+            process.StartInfo = psi;
+            process.Start();
+            process.WaitForExit();
+    
+            // Получаем путь к .exe файлу текущего приложения
+            string exePath = Assembly.GetEntryAssembly().Location;
+    
+            // Получаем путь до папки, в которой находится .exe файл
+            string appFolderPath = Path.GetDirectoryName(exePath);
+            string file = Path.GetFileName(outputFilePath);
+            string base64 = ReadAllConsoleText(outputFilePath);
+            DeleteFile(outputFilePath);
+            return base64;
+        }
+    }
 }
