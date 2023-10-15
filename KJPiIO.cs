@@ -180,7 +180,7 @@ namespace KJPi.IO
         /// <param name="workDirectory">На вход подаётся место, где будет создан или существует файл</param>
         /// <param name="nameFile">На вход подаётся имя файла с расширением</param>
         /// <param name="content">На вход подаётся контент, который будет содержаться в файле</param>
-        private static void WriteAllFileText(string workDirectory, string nameFile, string content)
+        public static void WriteAllFileText(string workDirectory, string nameFile, string content)
         {
             string outputPath = Path.Combine(Environment.CurrentDirectory, nameFile);
             File.WriteAllText(outputPath, content);
@@ -191,7 +191,7 @@ namespace KJPi.IO
         /// </summary>
         /// <param name="pathToDirectory">На вход подаётся директория, куда должен будет скопирован файл</param>
         /// <param name="outputFileName">На вход подаётся имя файла</param>
-        private static void CopyFileToFolder(string pathToDirectory, string outputFileName)
+        public static void CopyFileToFolder(string pathToDirectory, string outputFileName)
         {
             string movePath = Path.Combine(Environment.CurrentDirectory, outputFileName);
 
