@@ -55,7 +55,7 @@ namespace KJPi.Base
 
             string output = process.StandardOutput.ReadToEnd();
             string[] lines = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            string[] linesWithOnlyNumbers = lines.Where(line => KJPiBase.IsNumeric(line)).ToArray();
+            string[] linesWithOnlyNumbers = lines.Where(line => KJPiString.IsNumeric(line)).ToArray();
             double.TryParse(linesWithOnlyNumbers[linesWithOnlyNumbers.Length - 1],
                 NumberStyles.Any, CultureInfo.InvariantCulture, out double r);
             TimeSpan timeSpan = TimeSpan.FromSeconds(r);
